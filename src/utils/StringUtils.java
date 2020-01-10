@@ -59,6 +59,12 @@ public class StringUtils {
         return FilenameUtils.getBaseName(new URL(url).getPath());
     }
 
+    // Returns the host name of a URL.
+    // https://stackoverflow.com/a/23079402
+    public static String getURLHost(String url) throws MalformedURLException {
+        return new URL(url).getHost();
+    }
+
     // Base64 encode and decode methods that return a String instead of byte[].
     public static String base64Encode(String plaintext) {
         return Base64.getEncoder().encodeToString(stringToBytes(plaintext));

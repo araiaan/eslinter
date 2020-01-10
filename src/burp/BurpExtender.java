@@ -6,12 +6,9 @@ import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import javax.swing.SwingUtilities;
-
 import gui.BurpTab;
 import lint.BeautifyTask;
 import lint.Metadata;
-import linttable.LintResult;
 import utils.BurpLog;
 import utils.ReqResp;
 import utils.StringUtils;
@@ -22,11 +19,10 @@ public class BurpExtender implements IBurpExtender, ITab, IHttpListener {
     public static IExtensionHelpers helpers;
     public static Config extensionConfig;
     public static BurpLog log;
+    public static BurpTab mainTab;
 
     private static ExecutorService pool;
-    private BurpTab mainTab;
     
-
     //
     // implement IBurpExtender
     //
@@ -229,20 +225,6 @@ public class BurpExtender implements IBurpExtender, ITab, IHttpListener {
             return;
         }
 
-        // Create the LintResult and add to the table.
-        final LintResult lr = new LintResult(
-            ReqResp.getHost(requestResponse),
-            ReqResp.getURL(requestResponse).toString(),
-            "Added",
-            0
-        );
 
-        SwingUtilities.invokeLater (new Runnable () {
-            @Override
-            public void run () {
-                mainTab.lintTable.add(lr);
-            }
-        });
-        log.debug("Added the request to the table.");
     }
 }
